@@ -1,0 +1,5 @@
+export const ORDER_EVENTS = {
+  CREATED: "order.created",
+  CONFIRMED: "order.confirmed",
+  CANCELLED: "order.cancelled",
+} as const;

@@ -1,0 +1,12 @@
+{
+  "name": "@multivendor/cart-service",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts",
+    "start": "bun run src/server.ts"
+  },
+  "dependencies": {
+    "@multivendor/shared-types": "workspace:*"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "multivendor-ecommerce",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/backend/*"
+  ],
+  "scripts": {
+    "install:all": "pnpm install",
+    "dev:gateway": "pnpm --filter @multivendor/api-gateway dev",
+    "dev:auth": "pnpm --filter @multivendor/auth-service dev",
+    "dev:catalog": "pnpm --filter @multivendor/catalog-service dev",
+    "dev:cart": "pnpm --filter @multivendor/cart-service dev",
+    "dev:inventory": "pnpm --filter @multivendor/inventory-service dev",
+    "dev:payment": "pnpm --filter @multivendor/payment-service dev",
+    "dev:order": "pnpm --filter @multivendor/order-service dev",
+    "dev:notification": "pnpm --filter @multivendor/notification-service dev",
+    "dev:analytics": "pnpm --filter @multivendor/analytics-service dev",
+    "dev:socket": "pnpm --filter @multivendor/socket-service dev",
+    "dev:web": "pnpm --filter @multivendor/frontend-web dev",
+    "dev:admin": "pnpm --filter @multivendor/admin-web dev"
+  }
+}

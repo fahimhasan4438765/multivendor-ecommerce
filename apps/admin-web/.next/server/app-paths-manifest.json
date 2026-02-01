@@ -1,0 +1,6 @@
+{
+  "/(dashboard)/messaging/page": "app/(dashboard)/messaging/page.js",
+  "/(dashboard)/email/page": "app/(dashboard)/email/page.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/notifications/page": "app/(dashboard)/notifications/page.js"
+}

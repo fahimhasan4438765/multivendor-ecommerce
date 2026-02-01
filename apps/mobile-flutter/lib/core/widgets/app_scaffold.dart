@@ -37,6 +37,26 @@ class AppScaffold extends StatelessWidget {
   }
 
   Drawer? _buildDrawer(BuildContext context) {
+    final links = [
+      ('Home', '/'),
+      ('Categories', '/categories'),
+      ('Cart', '/cart'),
+      ('Orders', '/orders'),
+      ('Dashboard', '/dashboard'),
+      ('Wishlist', '/wishlist'),
+      ('Coupons', '/coupons'),
+      ('Special Offers', '/special-offers'),
+      ('Campaigns', '/campaigns'),
+      ('Terms', '/terms'),
+      ('Privacy', '/privacy'),
+      ('Refund', '/refund'),
+      ('About', '/about'),
+      ('Contact', '/contact'),
+      ('Login', '/login'),
+      ('Register', '/register'),
+      ('Vendor', '/vendor/login'),
+      ('Sitemap', '/sitemap'),
+    ];
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -48,26 +68,13 @@ class AppScaffold extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
-          ListTile(title: const Text('Home'), onTap: () {
-            Navigator.pop(context);
-            context.go('/');
-          }),
-          ListTile(title: const Text('Categories'), onTap: () {
-            Navigator.pop(context);
-            context.go('/categories');
-          }),
-          ListTile(title: const Text('Cart'), onTap: () {
-            Navigator.pop(context);
-            context.go('/cart');
-          }),
-          ListTile(title: const Text('Login'), onTap: () {
-            Navigator.pop(context);
-            context.go('/login');
-          }),
-          ListTile(title: const Text('Vendor'), onTap: () {
-            Navigator.pop(context);
-            context.go('/vendor/login');
-          }),
+          ...links.map((e) => ListTile(
+            title: Text(e.$1),
+            onTap: () {
+              Navigator.pop(context);
+              context.go(e.$2);
+            },
+          )),
         ],
       ),
     );

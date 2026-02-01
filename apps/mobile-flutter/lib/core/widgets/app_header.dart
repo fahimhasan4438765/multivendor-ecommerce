@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../utils/colors.dart';
 
 /// Orange header matching web design
@@ -17,7 +18,21 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title, style: const TextStyle(color: Colors.white)),
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
-      actions: actions ?? [],
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.favorite_border),
+          onPressed: () => context.go('/wishlist'),
+        ),
+        IconButton(
+          icon: const Icon(Icons.shopping_cart_outlined),
+          onPressed: () => context.go('/cart'),
+        ),
+        IconButton(
+          icon: const Icon(Icons.person_outline),
+          onPressed: () => context.go('/dashboard'),
+        ),
+        ...?actions,
+      ],
     );
   }
 }

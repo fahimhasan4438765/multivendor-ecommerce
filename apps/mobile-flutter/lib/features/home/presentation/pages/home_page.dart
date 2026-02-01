@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/widgets/placeholder_image.dart';
 import '../../../../core/widgets/app_scaffold.dart';
+import '../widgets/section_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,12 +18,9 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHero(context),
-            _buildSectionTitle('Shop by Category'),
-            _buildCategoryGrid(context),
-            _buildSectionTitle('Hot Deals'),
-            _buildProductGrid(context, 3),
-            _buildSectionTitle('Top Trending'),
-            _buildProductGrid(context, 4),
+            _buildCategoryStrip(context),
+            _buildPromoRow(context),
+            ..._buildSectionsWithBanners(context),
           ],
         ),
       ),
@@ -34,10 +32,7 @@ class HomePage extends StatelessWidget {
       onTap: () {},
       child: Stack(
         children: [
-          const PlaceholderImage(
-            height: 200,
-            text: '75% OFF - Flash Sale',
-          ),
+          const PlaceholderImage(height: 220, text: '75% OFF - Flash Sale'),
           Positioned(
             bottom: 16,
             left: 16,
@@ -50,45 +45,60 @@ class HomePage extends StatelessWidget {
               child: const Text('Shop Now'),
             ),
           ),
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text('532D : 9M : 55S',
+                  style: TextStyle(color: Colors.white, fontFamily: 'monospace')),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Text(title, style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      )),
-    );
-  }
-
-  Widget _buildCategoryGrid(BuildContext context) {
-    final categories = ['Electronics', 'Fashion', 'Home', 'Sports'];
+  Widget _buildCategoryStrip(BuildContext context) {
+    final categories = ['Electronics', 'Fashion', 'Home', 'Sports', 'Books'];
     return SizedBox(
-      height: 120,
+      height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         itemCount: categories.length,
         itemBuilder: (_, i) {
+          final colors = [
+            Colors.blue,
+            Colors.pink,
+            Colors.green,
+            Colors.orange,
+            Colors.purple,
+          ];
           return Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: GestureDetector(
-              onTap: () => context.go('/categories/${categories[i].toLowerCase()}'),
+              onTap: () =>
+                  context.go('/categories/${categories[i].toLowerCase()}'),
               child: Column(
                 children: [
                   Container(
-                    width: 80,
-                    height: 80,
+                    width: 64,
+                    height: 64,
                     decoration: BoxDecoration(
-                      color: [Colors.blue, Colors.pink, Colors.green, Colors.orange][i]
-                          .withOpacity(0.3),
+                      color: colors[i].withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Center(child: Text(categories[i].substring(0, 1))),
+                    child: Center(
+                        child: Text(categories[i].substring(0, 1),
+                            style: TextStyle(
+                                color: colors[i],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24))),
                   ),
                   const SizedBox(height: 4),
                   Text(categories[i], style: const TextStyle(fontSize: 12)),
@@ -101,51 +111,59 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductGrid(BuildContext context, int count) {
-    return SizedBox(
-      height: 220,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        itemCount: count,
-        itemBuilder: (_, i) {
-          return Padding(
-            padding: const EdgeInsets.all(8),
-            child: SizedBox(
-              width: 160,
-              child: GestureDetector(
-                onTap: () => context.go('/products/${i + 1}'),
-                child: Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Expanded(
-                        child: PlaceholderImage(text: 'Product', height: 120),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Product ${i + 1}', style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            )),
-                            Text('\$99', style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold,
-                            )),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+  Widget _buildPromoRow(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () => context.go('/special-offers'),
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.pink.shade100,
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: const Center(
+                    child: Text('40% OFF',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16))),
               ),
             ),
-          );
-        },
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => context.go('/campaigns'),
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Center(
+                    child: Text('70% OFF',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16))),
+              ),
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  List<Widget> _buildSectionsWithBanners(BuildContext context) {
+    final sections = sectionTitles;
+    final widgets = <Widget>[];
+    for (var i = 0; i < sections.length; i++) {
+      widgets.add(buildSectionTitle(sections[i]));
+      widgets.add(buildProductGrid(context, sections[i], 4));
+      if ((i + 1) % 5 == 0 && i < sections.length - 1) {
+        widgets.add(buildPromoBanner('Limited Time Offer - Shop Now!'));
+      }
+    }
+    return widgets;
   }
 }

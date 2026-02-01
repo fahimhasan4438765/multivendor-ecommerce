@@ -43,6 +43,11 @@ Design-first implementation matching web Next.js. Uses Riverpod, go_router.
 - `/vendor/inventory`
 - `/vendor/offers`
 
+## Structure (per FLUTTER_STRUCTURE.md)
+- core/config, network, storage, errors, utils, widgets
+- features: data/dto, domain/entities, presentation/pages, presentation/widgets
+- Riverpod for state, go_router for routing
+
 ## Run
 ```bash
 cd apps/mobile-flutter

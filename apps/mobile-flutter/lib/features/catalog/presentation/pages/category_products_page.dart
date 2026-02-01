@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/utils/colors.dart';
 import '../../../../core/widgets/app_scaffold.dart';
 import '../../../../core/widgets/placeholder_image.dart';
+import '../widgets/filter_sheet.dart';
 
 class CategoryProductsPage extends StatelessWidget {
   final String slug;
@@ -11,11 +12,16 @@ class CategoryProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = slug.replaceAll('-', ' ').split(' ').map(
-      (w) => w.isEmpty ? '' : '${w[0].toUpperCase()}${w.substring(1)}'
-    ).join(' ');
+    final name = slug.replaceAll('-', ' ').split(' ').map((w) =>
+        w.isEmpty ? '' : '${w[0].toUpperCase()}${w.substring(1)}').join(' ');
     return AppScaffold(
       title: name,
+      appBarActions: [
+        IconButton(
+          icon: const Icon(Icons.filter_list),
+          onPressed: () => FilterSheet.show(context),
+        ),
+      ],
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: 12,
@@ -40,14 +46,13 @@ class CategoryProductsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Product ${i + 1}', style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        )),
-                        Text('\$${99 + i * 10}', style: const TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        )),
+                        Text('Product ${i + 1}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 14)),
+                        Text('\$${99 + i * 10}',
+                            style: const TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold)),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(

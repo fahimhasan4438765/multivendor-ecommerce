@@ -32,6 +32,7 @@ import '../../features/vendor/presentation/pages/vendor_profile_page.dart';
 import '../../features/vendor/presentation/pages/vendor_accounts_page.dart';
 import '../../features/vendor/presentation/pages/vendor_inventory_page.dart';
 import '../../features/vendor/presentation/pages/vendor_offers_page.dart';
+import '../../features/sitemap/presentation/pages/sitemap_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -87,6 +88,7 @@ GoRouter createAppRouter() {
       GoRoute(path: '/vendor/accounts', builder: (_, __) => const VendorAccountsPage()),
       GoRoute(path: '/vendor/inventory', builder: (_, __) => const VendorInventoryPage()),
       GoRoute(path: '/vendor/offers', builder: (_, __) => const VendorOffersPage()),
+      GoRoute(path: '/sitemap', builder: (_, __) => const SitemapPage()),
     ],
   );
 }
